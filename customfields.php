@@ -3,11 +3,50 @@
 * Custom field functionality for student site
 * Requires metabox plugin https://metabox.io
 */
+
+
+/**
+* Create custom post type for courses
+*/
+add_action( 'init', 'macs_create_course_type' );
+function macs_create_course_type() {
+  register_post_type( 'course',
+    array(
+        'labels' => array(
+        	'name' => __( 'Courses' ),
+        	'singular_name' => __( 'Course' ),
+		'add_new' => __( 'New course' ),
+		'add_new_item' => __( 'Add new course' ),
+		'edit_item' => __( 'Edit course data' ),
+		'view_item' => __( 'View course data' )
+      		),
+      	'public' => true,
+      	'has_archive' => true,
+      	'rewrite' => array('slug' => 'course'),
+      	'supports' => array('title', 'editor', 'revisions', 'page-attributes' ),
+	'menu_position' => 20,
+	'capability_type' => 'page',
+	'hierachical' => true,
+	'taxonomies'=> array('post_tag', 'category')
+    )
+  );
+}
+
+function wpb_change_course_title_text( $title ){
+     $screen = get_current_screen();
+     if  ( 'course' == $screen->post_type ) {
+          $title = 'Course code and title';
+     }
+     return $title;
+}
+add_filter( 'enter_title_here', 'wpb_change_course_title_text' );
+
+
 add_filter( 'rwmb_meta_boxes', 'macs_students_meta_boxes' );
 function macs_students_meta_boxes( $meta_boxes ) {
     $meta_boxes[] = array(
         'title'	     => 'Course metadata',
-        'post_types' => 'page',
+        'post_types' => array('page', 'course'),
         'fields'     => array(
             array(
                 'id'   => 'courseCode',
@@ -148,7 +187,7 @@ function macs_students_meta_boxes( $meta_boxes ) {
 }
 
 /**
-* Create custom post type for stroing (links to) people's details
+* Create custom post type for storing (links to) people's details
 */
 add_action( 'init', 'macs_create_person_type' );
 function macs_create_person_type() {
@@ -218,6 +257,7 @@ function macs_person_meta_boxes( $meta_boxes ) {
 	);
     return $meta_boxes;
 }
+
 
 
 /**

@@ -20,7 +20,8 @@
 				elseif( is_page_template( 'page-templates/maths.php' ) ) {
 				$sidebar = 'maths';
 				}
-				elseif( is_page_template( 'page-templates/cs.php' ) ) {
+				elseif( is_page_template( 'page-templates/cs.php' ) 
+				|| in_category( 'CS' ) ) {
 				$sidebar = 'cs';
 				}
 				elseif( is_page_template( 'page-templates/edinburgh.php' ) ) {
