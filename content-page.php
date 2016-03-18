@@ -20,7 +20,6 @@
 	</header>
 
 	<div class="entry-content clearfix">
-		<?php macs_print_course_code(); ?>
 		<?php the_content(); ?>
 		<?php
 			wp_link_pages( array(

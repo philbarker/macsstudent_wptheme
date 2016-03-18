@@ -1,6 +1,5 @@
 <?php
 /**
- * Template Name: CS Page Template
  *
  * Displays the CS Page Template of the theme.
  *
@@ -18,7 +17,7 @@
 		<div id="content" class="clearfix">
 			<?php while ( have_posts() ) : the_post(); ?>
 
-				<?php get_template_part( 'content', 'page' ); ?>
+				<?php get_template_part( 'course', 'page' ); ?>
 
 			<?php endwhile; ?>
 

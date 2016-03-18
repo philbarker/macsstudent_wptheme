@@ -1,6 +1,6 @@
 <?php
 /**
-* Custom field functionality for student site
+* Functions to support the Course type in MACS Students WP site.
 * Requires metabox plugin https://metabox.io
 */
 
@@ -42,8 +42,8 @@ function wpb_change_course_title_text( $title ){
 add_filter( 'enter_title_here', 'wpb_change_course_title_text' );
 
 
-add_filter( 'rwmb_meta_boxes', 'macs_students_meta_boxes' );
-function macs_students_meta_boxes( $meta_boxes ) {
+add_filter( 'rwmb_meta_boxes', 'macs_courses_meta_boxes' );
+function macs_courses_meta_boxes( $meta_boxes ) {
     $meta_boxes[] = array(
         'title'	     => 'Course metadata',
         'post_types' => array('page', 'course'),
@@ -161,7 +161,7 @@ function macs_students_meta_boxes( $meta_boxes ) {
                 'id'   => 'courseAssessmentMethods',
                 'name' => 'Course Assessment Methods',
                 'type' => 'wysiwyg',
-                'desc' => 'The course Assessment (and Reassessment Methods), e.g Assessment: Examination: (weighting – 70%) Coursework (weighting – 30%); Re-assessment: Examination: (weighting – 100%)'
+                'desc' => 'The course Assessment (and Reassessment Methods), e.g Assessment: Examination: (weighting 70%) Coursework (weighting 30%); Re-assessment: Examination: (weighting 100%)'
             ),
 			array(
                 'id'   => 'courseDetailedSyllabus',
@@ -186,79 +186,6 @@ function macs_students_meta_boxes( $meta_boxes ) {
     return $meta_boxes;
 }
 
-/**
-* Create custom post type for storing (links to) people's details
-*/
-add_action( 'init', 'macs_create_person_type' );
-function macs_create_person_type() {
-  register_post_type( 'person',
-    array(
-        'labels' => array(
-        'name' => __( 'People' ),
-        'singular_name' => __( 'Person' ),
-		'add_new' => __( 'New person' ),
-		'add_new_item' => __( 'Add new person' ),
-		'edit_item' => __( 'Edit person' ),
-		'view_item' => __( 'View person' )
-      ),
-      'public' => true,
-      'has_archive' => false,
-      'rewrite' => array('slug' => 'person'),
-      'supports' => array('title', 'revisions' ),
-	  'menu_position' => 20,
-	  'menu_icon' => 'dashicons-admin-users'
-    )
-  );
-}
-
-function wpb_change_title_text( $title ){
-     $screen = get_current_screen();
-     if  ( 'person' == $screen->post_type ) {
-          $title = 'Name';
-     }
-     return $title;
-}
-add_filter( 'enter_title_here', 'wpb_change_title_text' );
-
-
-/**
-* Register meta box for person metadata
-*/
-add_filter( 'rwmb_meta_boxes', 'macs_person_meta_boxes' );
-function macs_person_meta_boxes( $meta_boxes ) {
-    $meta_boxes[] = array(
-        'title'	     => 'Person metadata',
-        'post_types' => 'person',
-        'fields'     => array(
-			array(
-                'id'   => 'staffDirURL',
-                'name' => 'Staff directory URL',
-                'type' => 'url',
-                'desc' => 'The URL for this person\'s page in the staff directory.'
-            ),
-			array(
-                'id'   => 'photoURL',
-                'name' => 'Photo URL',
-                'type' => 'url',
-                'desc' => 'The URL of the Profile Picture in the staff directory.'
-            ),
-			array(
-                'id'   => 'location',
-                'name' => 'Location',
-                'type' => 'checkbox_list',
-				'options' => array(
-					'Dubai' => 'Dubai',
-					'Edinburgh' => 'Edinburgh',
-					'Malaysia' => 'Malaysia'
-				),
-                'desc' => 'Course Co-ordinators location, e.g. Edinburgh'
-            )
-		)
-	);
-    return $meta_boxes;
-}
-
-
 
 /**
 * Helper functions for printing out metadata fields
@@ -271,3 +198,40 @@ function macs_print_course_code( )
 		echo '<p><strong>Course code:</strong> '.rwmb_meta( 'courseCode' ).'</p>';
 	}
 }
+
+function macs_print_course_leader( )
+{
+	if ( implode( '', rwmb_meta( 'courseLeader' ) ) )
+	{
+		echo '<p><strong>Course co-ordinator(s):</strong> ';
+        $people = rwmb_meta( 'courseLeader' );
+        foreach ( $people as $person )
+		{
+			macs_print_person_link( $person );
+			if ($person === end( $people) )
+			{ 
+			echo '. '; 
+			} else {
+		  	echo ' &amp; ';  
+			}
+		}
+		echo '</p>';
+	}
+
+}
+
+function macs_print_course_leader_img( )
+{
+	if ( implode( '', rwmb_meta( 'courseLeader' ) ) )
+	{
+		echo '<p class="alignright" >';
+        $people = rwmb_meta( 'courseLeader' );
+        foreach ( $people as $person )
+		{
+			macs_print_person_img( $person );
+		}
+		echo '</p>';
+	}
+
+}
+

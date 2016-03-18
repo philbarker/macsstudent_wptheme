@@ -13,7 +13,8 @@ function theme_enqueue_styles() {
 
 add_action( 'widgets_init', 'my_register_sidebars' );
 
-include 'customfields.php';
+include 'macs-course-type.php';
+include 'macs-person-type.php';
  
 function my_register_sidebars() {
  
