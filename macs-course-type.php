@@ -123,7 +123,13 @@ function macs_courses_meta_boxes( $meta_boxes ) {
 					'posts_per_page' => - 1,
 				),	
 				'clone' => 'true',
-                'desc' => 'Linked Cousrse i.e synoptoc courses, e.g F27EF'
+                'desc' => 'Linked Course e.g F27EF'
+            ),
+			array(
+                'id'   => 'courseLinkedCoursesText',
+                'name' => 'Linked Courses notes',
+                'type' => 'text',
+                'desc' => 'e.g. synoptic courses'
             ),
 				array(
                 'id'   => 'courseSemester',
@@ -262,7 +268,6 @@ function macs_print_course_prereqs( )
 {
 	if ( implode( '', rwmb_meta( 'coursePrerequisiteCourses' ) ) )
 	{
-		$no_prereqs = false;
 		echo '<p><strong>Pre-requisite course(s):</strong> ';
         $prereq_courses = rwmb_meta( 'coursePrerequisiteCourses' );
         foreach ( $prereq_courses as $prereq )
@@ -292,4 +297,34 @@ function macs_print_course_prereqs( )
 		
 	}
 }
+
+function macs_print_linked_courses( )
+{
+	if ( implode( '', rwmb_meta( 'courseLinkedCourses' ) ) )
+	{
+		echo '<p><strong>Linked course(s):</strong> ';
+        $linked_courses = rwmb_meta( 'courseLinkedCourses' );
+        foreach ( $linked_courses as $linked_course )
+		{
+			macs_print_course_link( $linked_course );
+			if ($linked_course === end( $linked_courses ) )
+			{ 
+			echo '. '; 
+			} else {
+		  	echo ' &amp; ';  
+			}
+		}
+		if ( rwmb_meta( 'courseLinkedCoursesText' ) )
+		{
+			echo ' '.rwmb_meta( 'courseLinkedCoursesText' );
+		}
+		echo '</p>';
+	}
+	elseif ( rwmb_meta( 'courseLinkedCoursesText' ) )
+	{
+		echo '<p><strong>Linked course(s):</strong> './/
+			rwmb_meta( 'courseLinkedCoursesText' ).'</p>';
+	}
+}
+
 
