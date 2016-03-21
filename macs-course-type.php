@@ -56,12 +56,6 @@ function macs_courses_meta_boxes( $meta_boxes ) {
                 'desc' => 'The course code, e.g. F29EG'
             ),
 			array(
-                'id'   => 'courseTitle',
-                'name' => 'Course Title',
-                'type' => 'text',
-                'desc' => 'The course title, e.g. Software Development 1'
-            ),
-			array(
                 'id'   => 'courseLeader',
                 'name' => 'Course co-ordinator',
                 'type' => 'post',
@@ -97,16 +91,37 @@ function macs_courses_meta_boxes( $meta_boxes ) {
                 'desc' => 'Is this an Elective Course, Yes or No'
             ),
 			array(
-                'id'   => 'coursePrerequisites',
-                'name' => 'Course Prerequisites',
-                'type' => 'text',
+                'id'   => 'coursePrerequisiteCourses',
+                'name' => 'Prerequisite Courses',
+                'type' => 'post',
+				'post_type' => 'course',
+				'field_type'  => 'select_advanced',
+				'placeholder' => __( 'Select a course'),
+				'query_args'  => array(
+					'post_status'    => 'publish',
+					'posts_per_page' => - 1,
+				),	
 				'clone' => 'true',
                 'desc' => 'Course Pre-requisites, e.g F27EG'
+            ),
+			array(
+                'id'   => 'coursePrerequisitesText',
+                'name' => 'Other Course Prerequisites',
+                'type' => 'text',
+                'desc' => 'Or equivalent for F27EG'
             ),
 			array(
                 'id'   => 'courseLinkedCourses',
                 'name' => 'Course Linked Courses',
                 'type' => 'text',
+                'type' => 'post',
+				'post_type' => 'course',
+				'field_type'  => 'select_advanced',
+				'placeholder' => __( 'Select a course'),
+				'query_args'  => array(
+					'post_status'    => 'publish',
+					'posts_per_page' => - 1,
+				),	
 				'clone' => 'true',
                 'desc' => 'Linked Cousrse i.e synoptoc courses, e.g F27EF'
             ),
@@ -199,6 +214,14 @@ function macs_print_course_code( )
 	}
 }
 
+function macs_print_course_link( $course_id )
+{
+    $name = get_the_title( $course_id );
+	$url  = esc_url( get_permalink( $course_id ) ); 
+	echo sprintf( '<a href="%s">%s</a>', $url, $name );
+}
+
+
 function macs_print_course_leader( )
 {
 	if ( implode( '', rwmb_meta( 'courseLeader' ) ) )
@@ -233,5 +256,40 @@ function macs_print_course_leader_img( )
 		echo '</p>';
 	}
 
+}
+
+function macs_print_course_prereqs( )
+{
+	if ( implode( '', rwmb_meta( 'coursePrerequisiteCourses' ) ) )
+	{
+		$no_prereqs = false;
+		echo '<p><strong>Pre-requisite course(s):</strong> ';
+        $prereq_courses = rwmb_meta( 'coursePrerequisiteCourses' );
+        foreach ( $prereq_courses as $prereq )
+		{
+			macs_print_course_link( $prereq );
+			if ($prereq === end( $prereq_courses ) )
+			{ 
+			echo '. '; 
+			} else {
+		  	echo ' &amp; ';  
+			}
+		}
+		if ( rwmb_meta( 'coursePrerequisitesText' ) )
+		{
+			echo ' '.rwmb_meta( 'coursePrerequisitesText' );
+		}
+		echo '</p>';
+	}
+	elseif ( rwmb_meta( 'coursePrerequisitesText' ) )
+	{
+		echo '<p><strong>Pre-requisites:</strong> './/
+			rwmb_meta( 'coursePrerequisitesText' ).'</p>';
+	}
+	else 
+	{
+		echo '<p><strong>Pre-requisites:</strong>: None.</p>';
+		
+	}
 }
 
