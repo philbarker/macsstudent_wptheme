@@ -26,7 +26,8 @@ function macs_print_html_metadata($field_id, $lead_text)
 
 include 'macs-course-type.php';
 include 'macs-person-type.php';
- 
+include 'macs-taxonomies.php';
+
 function my_register_sidebars() {
  
     register_sidebar(array(
