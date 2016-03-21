@@ -13,6 +13,17 @@ function theme_enqueue_styles() {
 
 add_action( 'widgets_init', 'my_register_sidebars' );
 
+function macs_print_html_metadata($field_id, $lead_text)
+{
+
+	if ( rwmb_meta( $field_id ) )
+	{
+// to do: write style to support:
+//	echo '<h3 class="subhead">'.$lead_text.'</h3> '.rwmb_meta( $field_id );
+		echo '<p><strong>'.$lead_text.'</strong></p>'.rwmb_meta( $field_id );
+	}
+}
+
 include 'macs-course-type.php';
 include 'macs-person-type.php';
  
@@ -91,8 +102,6 @@ function my_register_sidebars() {
 		'after_title'   	=> '</span></h3>'
     ));
 }
-
-
 
 
 ?>

@@ -23,7 +23,7 @@ function macs_create_course_type() {
       	'public' => true,
       	'has_archive' => true,
       	'rewrite' => array('slug' => 'course'),
-      	'supports' => array('title', 'editor', 'revisions', 'page-attributes' ),
+      	'supports' => array('title', 'revisions', 'page-attributes' ),
 	'menu_position' => 20,
 	'capability_type' => 'page',
 	'hierachical' => true,
@@ -158,31 +158,51 @@ function macs_courses_meta_boxes( $meta_boxes ) {
                 'id'   => 'courseAims',
                 'name' => 'Course Aims',
                 'type' => 'wysiwyg',
-                'desc' => 'The course Aims'
+                'desc' => 'The course Aims',
+				'options' => array(
+					'media_buttons' => false,
+					'textarea_rows' => 6
+				)
             ),
 			array(
                 'id'   => 'courseSyllabus',
                 'name' => 'Course Syllabus',
                 'type' => 'wysiwyg',
-                'desc' => 'The course Syllabus'
+                'desc' => 'The course Syllabus',
+				'options' => array(
+					'media_buttons' => false,
+					'textarea_rows' => 6
+				)
             ),
 			array(
                 'id'   => 'courseLOSM',
                 'name' => 'Course Learning Outcomes: Subject Mastery',
                 'type' => 'wysiwyg',
-                'desc' => 'The course Learning Outcomes: Subject Mastery'
+                'desc' => 'The course Learning Outcomes: Subject Mastery',
+				'options' => array(
+					'media_buttons' => false,
+					'textarea_rows' => 6
+				)
             ),
 			array(
                 'id'   => 'courseLOPA',
                 'name' => 'Course Learning Outcomes: Personal Abilities',
                 'type' => 'wysiwyg',
-                'desc' => 'The course Learning Outcomes: Personal Abilities'
+                'desc' => 'The course Learning Outcomes: Personal Abilities',
+				'options' => array(
+					'media_buttons' => false,
+					'textarea_rows' => 6
+				)
             ),
 			array(
                 'id'   => 'courseAssessmentMethods',
                 'name' => 'Course Assessment Methods',
                 'type' => 'wysiwyg',
-                'desc' => 'The course Assessment (and Reassessment Methods), e.g Assessment: Examination: (weighting 70%) Coursework (weighting 30%); Re-assessment: Examination: (weighting 100%)'
+                'desc' => 'The course Assessment (and Reassessment Methods), e.g Assessment: Examination: (weighting 70%) Coursework (weighting 30%); Re-assessment: Examination: (weighting 100%)',
+				'options' => array(
+					'media_buttons' => false,
+					'textarea_rows' => 6
+				)
             ),
 			array(
                 'id'   => 'courseDetailedSyllabus',
@@ -325,6 +345,15 @@ function macs_print_linked_courses( )
 		echo '<p><strong>Linked course(s):</strong> './/
 			rwmb_meta( 'courseLinkedCoursesText' ).'</p>';
 	}
+}
+
+function macs_print_course_aims_objectives( )
+{
+ 	macs_print_html_metadata('courseAims', 'Aims:');
+ 	macs_print_html_metadata('courseSyllabus', 'Syllabus:');
+ 	macs_print_html_metadata('courseLOSM', 'Learning Oucomes: Subject Mastery');
+ 	macs_print_html_metadata('courseLOPA', 'Learning Oucomes: Personal Abilities');
+ 	macs_print_html_metadata('courseAssessmentMethods', 'Assessment Methods:');
 }
 
 
