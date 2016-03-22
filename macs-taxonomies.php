@@ -4,21 +4,6 @@
  *
  */
 
-function delivery_level_init() 
-{
-	$name ='deliveryLevels';
-	$object_type = 'course';
-	$args = array(
-		'label'=> 'Delivery Levels',
-		'hierarchical' => true,
-		'show_ui' => true,
-		'show_in_menu' => true,
-		'show_in_nav_menus' => true		
-	);
-	register_taxonomy( $name, $object_type, $args);
-}
-add_action( 'init', 'delivery_level_init' );
-
 function location_init() 
 {
 	$name ='location';
@@ -78,3 +63,19 @@ function level_init()
 	register_taxonomy( $name, $object_type, $args);
 }
 add_action( 'init', 'level_init' );
+
+function delivery_level_init() 
+{
+	$name ='deliveryLevels';
+	$object_type = 'course';
+	$args = array(
+		'label'=> 'Delivery Levels',
+		'hierarchical' => true,
+		'show_ui' => true,
+		'show_in_menu' => true,
+		'show_in_nav_menus' => true		
+	);
+	register_taxonomy( $name, $object_type, $args);
+}
+add_action( 'init', 'delivery_level_init' );
+
