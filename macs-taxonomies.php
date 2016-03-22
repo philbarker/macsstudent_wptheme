@@ -7,12 +7,12 @@
 function location_init() 
 {
 	$name ='location';
-	$object_type = 'course';
+	$object_type = array('course', 'person');
 	$args = array(
 		'label'=> 'Locations',
 		'hierarchical' => true,
 		'show_ui' => true,
-		'show_in_menu' => true,
+		'show_in_menu' => false,
 		'show_in_nav_menus' => true		
 	);
 	register_taxonomy( $name, $object_type, $args);
@@ -27,7 +27,7 @@ function department_init()
 		'label'=> 'Department',
 		'hierarchical' => true,
 		'show_ui' => true,
-		'show_in_menu' => true,
+		'show_in_menu' => false,
 		'show_in_nav_menus' => true		
 	);
 	register_taxonomy( $name, $object_type, $args);
@@ -42,7 +42,7 @@ function semester_init()
 		'label'=> 'Semester',
 		'hierarchical' => true,
 		'show_ui' => true,
-		'show_in_menu' => true,
+		'show_in_menu' => false,
 		'show_in_nav_menus' => true		
 	);
 	register_taxonomy( $name, $object_type, $args);
@@ -57,7 +57,7 @@ function level_init()
 		'label'=> 'SCQA Level',
 		'hierarchical' => true,
 		'show_ui' => true,
-		'show_in_menu' => true,
+		'show_in_menu' => false,
 		'show_in_nav_menus' => true		
 	);
 	register_taxonomy( $name, $object_type, $args);
@@ -72,7 +72,7 @@ function delivery_level_init()
 		'label'=> 'Delivery Levels',
 		'hierarchical' => true,
 		'show_ui' => true,
-		'show_in_menu' => true,
+		'show_in_menu' => false,
 		'show_in_nav_menus' => true		
 	);
 	register_taxonomy( $name, $object_type, $args);

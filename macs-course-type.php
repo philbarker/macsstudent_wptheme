@@ -27,7 +27,9 @@ function macs_create_course_type() {
 	'menu_position' => 20,
 	'capability_type' => 'page',
 	'hierachical' => true,
-	'taxonomies'=> array('post_tag', 'category')
+//	'taxonomies'=> array('post_tag', 'category')
+	'menu_position' => 20,
+	'menu_icon' => 'dashicons-admin-page'
     )
   );
 }
@@ -69,13 +71,14 @@ function macs_courses_meta_boxes( $meta_boxes ) {
 				'clone' => 'true',
                 'desc' => 'Link to the entry for the course coordinator'
             ),
-			array(
+/*			array(
                 'id'   => 'courseSCQFlevel',
                 'name' => 'Course SCQF Level',
                 'type' => 'text',
 				'size' => '2',
                 'desc' => 'The SCQF Level, e.g. 10'
             ),
+*/
 			array(
                 'id'   => 'courseSCQFcredits',
                 'name' => 'Course SCQF Credits',
@@ -86,8 +89,8 @@ function macs_courses_meta_boxes( $meta_boxes ) {
 			array(
                 'id'   => 'courseElective',
                 'name' => 'Course Elective',
-                'type' => 'text',
-				'size' => '3',
+                'type' => 'radio',
+				'options' => array('true' => 'yes', 'false' => 'no'),
                 'desc' => 'Is this an Elective Course, Yes or No'
             ),
 			array(
@@ -131,7 +134,7 @@ function macs_courses_meta_boxes( $meta_boxes ) {
                 'type' => 'text',
                 'desc' => 'e.g. synoptic courses'
             ),
-				array(
+/*			array(
                 'id'   => 'courseSemester',
                 'name' => 'Course Semester',
 				'type' => 'text',
@@ -154,6 +157,7 @@ function macs_courses_meta_boxes( $meta_boxes ) {
 				'clone' => 'true',				
                 'desc' => 'Campus(es) this course is taught in, e.g Dubai'
             ),
+*/
 			array(
                 'id'   => 'courseAims',
                 'name' => 'Course Aims',

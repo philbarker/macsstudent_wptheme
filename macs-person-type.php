@@ -24,7 +24,7 @@ function macs_create_person_type() {
       'has_archive' => false,
       'rewrite' => array('slug' => 'person'),
       'supports' => array('title', 'revisions' ),
-	  'menu_position' => 20,
+	  'menu_position' => 22,
 	  'menu_icon' => 'dashicons-admin-users'
     )
   );
@@ -61,7 +61,7 @@ function macs_person_meta_boxes( $meta_boxes ) {
                 'type' => 'url',
                 'desc' => 'The URL of the Profile Picture in the staff directory.'
             ),
-			array(
+/*			array(
                 'id'   => 'location',
                 'name' => 'Location',
                 'type' => 'checkbox_list',
@@ -72,6 +72,7 @@ function macs_person_meta_boxes( $meta_boxes ) {
 				),
                 'desc' => 'Course Co-ordinators location, e.g. Edinburgh'
             )
+*/
 		)
 	);
     return $meta_boxes;
