@@ -27,7 +27,7 @@ function macs_create_course_type() {
 	'menu_position' => 20,
 	'capability_type' => 'page',
 	'hierachical' => true,
-//	'taxonomies'=> array('post_tag', 'category')
+	'taxonomies'=> array('post_tag', 'category'),
 	'menu_position' => 20,
 	'menu_icon' => 'dashicons-admin-page'
     )
@@ -48,7 +48,7 @@ add_filter( 'rwmb_meta_boxes', 'macs_courses_meta_boxes' );
 function macs_courses_meta_boxes( $meta_boxes ) {
     $meta_boxes[] = array(
         'title'	     => 'Course metadata',
-        'post_types' => array('page', 'course'),
+        'post_types' => array('course'),
         'fields'     => array(
             array(
                 'id'   => 'courseCode',
