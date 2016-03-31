@@ -55,7 +55,7 @@ function level_init()
 	$name ='level';
 	$object_type = 'course';
 	$args = array(
-		'label'=> 'SCQA Level',
+		'label'=> 'SCQF Level',
 		'hierarchical' => true,
 		'show_ui' => true,
 		'show_in_menu' => true,
