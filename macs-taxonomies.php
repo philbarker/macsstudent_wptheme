@@ -8,7 +8,11 @@
 function location_init() 
 {
 	$name ='location';
-	$object_type = array('course', 'person');
+	$object_type = array('course', 
+						'cs-course', 
+						'maths-course', 
+						'ams-course', 
+						'person');
 	$args = array(
 		'label'=> 'Locations',
 		'hierarchical' => true,
@@ -38,7 +42,11 @@ add_action( 'init', 'department_init' );
 function semester_init() 
 {
 	$name ='semester';
-	$object_type = 'course';
+	$object_type = array('course', 
+						'cs-course', 
+						'maths-course', 
+						'ams-course', 
+						);
 	$args = array(
 		'label'=> 'Semester',
 		'hierarchical' => true,
@@ -53,12 +61,15 @@ add_action( 'init', 'semester_init' );
 function level_init() 
 {
 	$name ='level';
-	$object_type = 'course';
+	$object_type = array('cs-course', 
+						'maths-course', 
+						'ams-course', 
+						);
 	$args = array(
 		'label'=> 'SCQF Level',
 		'hierarchical' => true,
 		'show_ui' => true,
-		'show_in_menu' => true,
+		'show_in_menu' => false,
 		'show_in_nav_menus' => true		
 	);
 	register_taxonomy( $name, $object_type, $args);
@@ -68,7 +79,11 @@ add_action( 'init', 'level_init' );
 function delivery_level_init() 
 {
 	$name ='deliveryLevel';
-	$object_type = 'course';
+	$object_type = array('course', 
+						'cs-course', 
+						'maths-course', 
+						'ams-course', 
+						);
 	$args = array(
 		'label'=> 'Delivery Levels',
 		'hierarchical' => true,

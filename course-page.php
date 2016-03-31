@@ -1,10 +1,12 @@
 <?php
 /**
- * The template used for displaying page content in page.php
+ * The template used for displaying course info for all course types
+ * Called from single-*-course.php
  *
  * @package ThemeGrill
  * @subpackage Accelerate
- * @since Accelerate 1.0
+ * @subpackage macs-student
+ * @since macs-student 1.0
  */
 ?>
 
@@ -22,10 +24,6 @@
 		<?php macs_print_course_prereqs(); ?>
 		<?php macs_print_linked_courses(); ?>
 		<?php macs_print_course_aims_objectives(); ?>
-
-
-
-
 	</div>
 
 	<?php do_action( 'accelerate_after_post_content' ); ?>

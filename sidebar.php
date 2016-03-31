@@ -11,17 +11,20 @@
 <div id="secondary">
 	<?php do_action( 'accelerate_before_sidebar' ); ?>
 		<?php 
+			$post_type = get_post_type();
 			if( is_page_template( 'page-templates/contact.php' ) ) {
 				$sidebar = 'accelerate_contact_page_sidebar';
 				}
-				elseif( is_page_template( 'page-templates/ams.php' ) ) {
+				elseif( is_page_template( 'page-templates/ams.php' )  
+				|| ( $post_type == 'ams-course' ) ) {
 				$sidebar = 'ams';
 				}
-				elseif( is_page_template( 'page-templates/maths.php' ) ) {
+				elseif( is_page_template( 'page-templates/maths.php' )  
+				|| ( $post_type == 'maths-course' ) ) {
 				$sidebar = 'maths';
 				}
 				elseif( is_page_template( 'page-templates/cs.php' ) 
-				|| in_category( 'CS' ) ) {
+				|| ( $post_type == 'cs-course' ) ) {
 				$sidebar = 'cs';
 				}
 				elseif( is_page_template( 'page-templates/edinburgh.php' ) ) {

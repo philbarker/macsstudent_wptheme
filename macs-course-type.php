@@ -4,13 +4,12 @@
 * Requires metabox plugin https://metabox.io
 */
 
-
 /**
 * Create custom post type for courses
 */
 add_action( 'init', 'macs_create_course_type' );
 function macs_create_course_type() {
-  register_post_type( 'course',
+/*  register_post_type( 'course',
     array(
         'labels' => array(
         	'name' => __( 'Courses' ),
@@ -32,7 +31,80 @@ function macs_create_course_type() {
 	'menu_icon' => 'dashicons-admin-page'
     )
   );
+*/
+  register_post_type( 'cs-course',
+    array(
+        'labels' => array(
+        	'name' => __( 'CS Courses' ),
+        	'singular_name' => __( 'CS Course' ),
+		'add_new' => __( 'New CS course' ),
+		'add_new_item' => __( 'Add new CS course' ),
+		'edit_item' => __( 'Edit CS course data' ),
+		'view_item' => __( 'View CS course data' )
+      		),
+      	'public' => true,
+      	'has_archive' => false,
+      	'rewrite' => array('slug' => 'cs/courses', 'with_front' => false),
+      	'supports' => array('title', 'revisions' ),
+	'menu_position' => 20,
+	'capability_type' => 'page',
+	'hierachical' => true,
+	'taxonomies'=> array(),
+	'menu_position' => 20,
+	'menu_icon' => 'dashicons-admin-page'
+    )
+  );
+  register_post_type( 'maths-course',
+    array(
+        'labels' => array(
+        	'name' => __( 'Maths Courses' ),
+        	'singular_name' => __( 'Maths Course' ),
+		'add_new' => __( 'New Maths course' ),
+		'add_new_item' => __( 'Add new Maths course' ),
+		'edit_item' => __( 'Edit Maths course data' ),
+		'view_item' => __( 'View Maths course data' )
+      		),
+      	'public' => true,
+      	'has_archive' => false,
+      	'rewrite' => array('slug' => 'maths/courses'),
+      	'supports' => array('title', 'revisions', 'page-attributes' ),
+	'menu_position' => 20,
+	'capability_type' => 'page',
+	'hierachical' => true,
+	'taxonomies'=> array('post_tag', 'category'),
+	'menu_position' => 20,
+	'menu_icon' => 'dashicons-admin-page'
+    )
+  );
+  register_post_type( 'ams-course',
+    array(
+        'labels' => array(
+        	'name' => __( 'AMS Courses' ),
+        	'singular_name' => __( 'AMS Course' ),
+		'add_new' => __( 'New AMS course' ),
+		'add_new_item' => __( 'Add new AMS course' ),
+		'edit_item' => __( 'Edit AMS course data' ),
+		'view_item' => __( 'View AMS course data' )
+      		),
+      	'public' => true,
+      	'has_archive' => false,
+      	'rewrite' => array('slug' => 'ams/courses'),
+      	'supports' => array('title', 'revisions', 'page-attributes' ),
+	'menu_position' => 20,
+	'capability_type' => 'page',
+	'hierachical' => true,
+	'taxonomies'=> array('post_tag', 'category'),
+	'menu_position' => 20,
+	'menu_icon' => 'dashicons-admin-page'
+    )
+  );
 }
+
+function macs_rewrite_flush() {
+	macs_create_course_type();
+	flush_rewrite_rules();
+}
+add_action('after_switch_theme', 'macs_rewrite_flush');
 
 function wpb_change_course_title_text( $title ){
      $screen = get_current_screen();
@@ -47,8 +119,8 @@ add_filter( 'enter_title_here', 'wpb_change_course_title_text' );
 add_filter( 'rwmb_meta_boxes', 'macs_courses_meta_boxes' );
 function macs_courses_meta_boxes( $meta_boxes ) {
     $meta_boxes[] = array(
-        'title'	     => 'Course metadata',
-        'post_types' => array('course'),
+        'title'	     => 'Basic course metadata',
+        'post_types' => array('course', 'cs-course', 'ams-course', 'maths-course'),
         'fields'     => array(
             array(
                 'id'   => 'courseCode',
@@ -71,14 +143,6 @@ function macs_courses_meta_boxes( $meta_boxes ) {
 				'clone' => 'true',
                 'desc' => 'Link to the entry for the course coordinator'
             ),
-/*			array(
-                'id'   => 'courseSCQFlevel',
-                'name' => 'Course SCQF Level',
-                'type' => 'text',
-				'size' => '2',
-                'desc' => 'The SCQF Level, e.g. 10'
-            ),
-*/
 			array(
                 'id'   => 'courseSCQFcredits',
                 'name' => 'Course SCQF Credits',
@@ -97,7 +161,7 @@ function macs_courses_meta_boxes( $meta_boxes ) {
                 'id'   => 'coursePrerequisiteCourses',
                 'name' => 'Prerequisite Courses',
                 'type' => 'post',
-				'post_type' => 'course',
+		        'post_type' => array('cs-course', 'ams-course', 'maths-course'),
 				'field_type'  => 'select_advanced',
 				'placeholder' => __( 'Select a course'),
 				'query_args'  => array(
@@ -116,7 +180,6 @@ function macs_courses_meta_boxes( $meta_boxes ) {
 			array(
                 'id'   => 'courseLinkedCourses',
                 'name' => 'Course Linked Courses',
-                'type' => 'text',
                 'type' => 'post',
 				'post_type' => 'course',
 				'field_type'  => 'select_advanced',
@@ -134,30 +197,6 @@ function macs_courses_meta_boxes( $meta_boxes ) {
                 'type' => 'text',
                 'desc' => 'e.g. synoptic courses'
             ),
-/*			array(
-                'id'   => 'courseSemester',
-                'name' => 'Course Semester',
-				'type' => 'text',
-				'clone' => 'true',
-				'size' => '2',				
-                'desc' => 'Semester(s) this course is taught in, e.g S1'
-            ),
-			array(
-                'id'   => 'courseDeliveryLevel',
-                'name' => 'Course Delivery Level',
-				'type' => 'text',
-				'clone' => 'true',
-				'size' => '3',				
-                'desc' => 'Delivery Level(s), e.g PGT'
-            ),
-			array(
-                'id'   => 'courseLocation',
-                'name' => 'Course Location',
-				'type' => 'text',
-				'clone' => 'true',				
-                'desc' => 'Campus(es) this course is taught in, e.g Dubai'
-            ),
-*/
 			array(
                 'id'   => 'courseAims',
                 'name' => 'Course Aims',
@@ -208,6 +247,9 @@ function macs_courses_meta_boxes( $meta_boxes ) {
 					'textarea_rows' => 6
 				)
             ),
+        ),
+    );
+/*
 			array(
                 'id'   => 'courseDetailedSyllabus',
                 'name' => 'Course Detailed Syllabus',
@@ -226,8 +268,7 @@ function macs_courses_meta_boxes( $meta_boxes ) {
                 'type' => 'text',
                 'desc' => 'The contact Hours for the course, (used by Maths)'
             )
-        ),
-    );
+*/
     return $meta_boxes;
 }
 
