@@ -1,15 +1,14 @@
 <?php
 /**
  * Taxonmies used for the MACS students pages
- * i.e.: location, department, level, delivery level
+ * i.e.: location, department, semester, level, delivery level
  * posts_by_taxon() : return list of posts as classified by these txnms
  */
 
 function location_init() 
 {
 	$name ='location';
-	$object_type = array('course', 
-						'cs-course', 
+	$object_type = array('cs-course', 
 						'maths-course', 
 						'ams-course', 
 						'person');
@@ -27,7 +26,7 @@ add_action( 'init', 'location_init' );
 function department_init() 
 {
 	$name ='department';
-	$object_type = 'course';
+	$object_type = 'person';
 	$args = array(
 		'label'=> 'Department',
 		'hierarchical' => true,
@@ -42,8 +41,7 @@ add_action( 'init', 'department_init' );
 function semester_init() 
 {
 	$name ='semester';
-	$object_type = array('course', 
-						'cs-course', 
+	$object_type = array('cs-course', 
 						'maths-course', 
 						'ams-course', 
 						);
@@ -79,8 +77,7 @@ add_action( 'init', 'level_init' );
 function delivery_level_init() 
 {
 	$name ='deliveryLevel';
-	$object_type = array('course', 
-						'cs-course', 
+	$object_type = array('cs-course', 
 						'maths-course', 
 						'ams-course', 
 						);
@@ -135,13 +132,23 @@ function posts_by_taxon ( $atts )
 	}
 	if ( array_key_exists( 'delivery_level', $atts ) )
 	{
-		$results = $results.' department = '.$atts['department'];
-		$department_tax_query = array(
-			'taxonomy' => 'department',
+		$results = $results.' delivery level = '.$atts['delivery_level'];
+		$delivery_level_tax_query = array(
+			'taxonomy' => 'delivery_level',
 			'field' => 'name',
-			'terms' => $atts['department']
+			'terms' => $atts['delivery_level']
 		);
-		$query['tax_query'][] = $department_tax_query;
+		$query['tax_query'][] = $delivery_level_tax_query;
+	}
+	if ( array_key_exists( 'location', $atts ) )
+	{
+		$results = $results.' location = '.$atts['location'];
+		$location_tax_query = array(
+			'taxonomy' => 'location',
+			'field' => 'name',
+			'terms' => $atts['location']
+		);
+		$query['tax_query'][] = $location_tax_query;
 	}
 
 	$posts_array = get_posts( $query );

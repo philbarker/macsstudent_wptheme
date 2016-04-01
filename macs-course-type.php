@@ -71,7 +71,7 @@ function macs_create_course_type() {
 	'menu_position' => 20,
 	'capability_type' => 'page',
 	'hierachical' => true,
-	'taxonomies'=> array('post_tag', 'category'),
+	'taxonomies'=> array(),
 	'menu_position' => 20,
 	'menu_icon' => 'dashicons-admin-page'
     )
@@ -93,7 +93,7 @@ function macs_create_course_type() {
 	'menu_position' => 20,
 	'capability_type' => 'page',
 	'hierachical' => true,
-	'taxonomies'=> array('post_tag', 'category'),
+	'taxonomies'=> array(),
 	'menu_position' => 20,
 	'menu_icon' => 'dashicons-admin-page'
     )
@@ -306,7 +306,7 @@ function macs_print_course_leader( )
 			{ 
 			echo '. '; 
 			} else {
-		  	echo ' &amp; ';  
+		  	echo ', ';  
 			}
 		}
 		echo '</p>';

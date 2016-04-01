@@ -86,14 +86,21 @@ function macs_person_meta_boxes( $meta_boxes ) {
 
 function macs_print_person_link( $person_id ) {
     $name = get_the_title( $person_id );
-	$url  = esc_url( rwmb_meta( 'staffDirURL', array(), $person_id ) ); 
-	echo sprintf( '<a href="%s">%s</a>', $url, $name );
+	$url  = esc_url( rwmb_meta( 'staffDirURL', array(), $person_id ) );
+	$location =  implode(', ', wp_get_post_terms( $person_id, 
+												'location', 
+												array('fields' => 'names' ) 
+												) );
+	echo sprintf( '<a href="%s">%s</a>(%s)', $url, $name, $location);
+
 }
 
 function macs_print_person_img( $person_id ) {
-    $name = get_the_title( $person_id );
     $imgref = esc_url( rwmb_meta( 'photoURL', array(), $person_id ) );
-	$url  = esc_url( rwmb_meta( 'staffDirURL', array(), $person_id ) ); 
-	echo sprintf( '<a href="%s"><img src="%s" alt="%s" /></a>', 
+	if ($imgref != '') {
+	    $name = get_the_title( $person_id );
+		$url  = esc_url( rwmb_meta( 'staffDirURL', array(), $person_id ) ); 
+		echo sprintf( '<a href="%s"><img src="%s" alt="%s" /></a>', 
 					$url, $imgref, $name );
+	}
 }
