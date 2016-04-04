@@ -400,4 +400,10 @@ function macs_print_course_aims_objectives( )
  	macs_print_html_metadata('courseAssessmentMethods', 'Assessment Methods:');
 }
 
+function macs_print_course_contact_hours( )
+{
+	if ( rwmb_meta( 'courseContactHours' ) != '' ) {
+	 	macs_print_html_metadata('courseContactHours', 'Contact Hours:');
+	}
+}
 
