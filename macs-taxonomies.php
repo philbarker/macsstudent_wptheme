@@ -1,7 +1,8 @@
 <?php
 /**
- * Taxonmies used for the MACS students pages
+ * Initialise Taxonmies used for the MACS students pages
  * i.e.: location, department, semester, level, delivery level
+ *
  * posts_by_taxon() : return list of posts as classified by these txnms
  */
 

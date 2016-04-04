@@ -91,7 +91,7 @@ function macs_print_person_link( $person_id ) {
 												'location', 
 												array('fields' => 'names' ) 
 												) );
-	echo sprintf( '<a href="%s">%s</a>(%s)', $url, $name, $location);
+	echo sprintf( '<a href="%s">%s</a> (%s)', $url, $name, $location);
 
 }
 

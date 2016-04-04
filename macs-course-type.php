@@ -5,33 +5,10 @@
 */
 
 /**
-* Create custom post type for courses
+* Create custom post types for courses per discipline
 */
 add_action( 'init', 'macs_create_course_type' );
 function macs_create_course_type() {
-/*  register_post_type( 'course',
-    array(
-        'labels' => array(
-        	'name' => __( 'Courses' ),
-        	'singular_name' => __( 'Course' ),
-		'add_new' => __( 'New course' ),
-		'add_new_item' => __( 'Add new course' ),
-		'edit_item' => __( 'Edit course data' ),
-		'view_item' => __( 'View course data' )
-      		),
-      	'public' => true,
-      	'has_archive' => true,
-      	'rewrite' => array('slug' => 'course'),
-      	'supports' => array('title', 'revisions', 'page-attributes' ),
-	'menu_position' => 20,
-	'capability_type' => 'page',
-	'hierachical' => true,
-	'taxonomies'=> array('post_tag', 'category'),
-	'menu_position' => 20,
-	'menu_icon' => 'dashicons-admin-page'
-    )
-  );
-*/
   register_post_type( 'cs-course',
     array(
         'labels' => array(
@@ -67,7 +44,7 @@ function macs_create_course_type() {
       	'public' => true,
       	'has_archive' => false,
       	'rewrite' => array('slug' => 'maths/courses'),
-      	'supports' => array('title', 'revisions', 'page-attributes' ),
+      	'supports' => array('title', 'revisions' ),
 	'menu_position' => 20,
 	'capability_type' => 'page',
 	'hierachical' => true,
@@ -89,7 +66,7 @@ function macs_create_course_type() {
       	'public' => true,
       	'has_archive' => false,
       	'rewrite' => array('slug' => 'ams/courses'),
-      	'supports' => array('title', 'revisions', 'page-attributes' ),
+      	'supports' => array('title', 'revisions' ),
 	'menu_position' => 20,
 	'capability_type' => 'page',
 	'hierachical' => true,
@@ -120,7 +97,7 @@ add_filter( 'rwmb_meta_boxes', 'macs_courses_meta_boxes' );
 function macs_courses_meta_boxes( $meta_boxes ) {
     $meta_boxes[] = array(
         'title'	     => 'Basic course metadata',
-        'post_types' => array('course', 'cs-course', 'ams-course', 'maths-course'),
+        'post_types' => array('cs-course', 'ams-course', 'maths-course'),
         'fields'     => array(
             array(
                 'id'   => 'courseCode',
@@ -249,18 +226,30 @@ function macs_courses_meta_boxes( $meta_boxes ) {
             ),
         ),
     );
-/*
+
+    $meta_boxes[] = array(
+        'title'	     => 'Extended course metadata (Maths & AMS)',
+        'post_types' => array('ams-course', 'maths-course'),
+        'fields'     => array(
 			array(
                 'id'   => 'courseDetailedSyllabus',
                 'name' => 'Course Detailed Syllabus',
                 'type' => 'wysiwyg',
-                'desc' => 'Provides a more detailed syllabus field (used by Maths and AMS)'
+                'desc' => 'Provides a more detailed syllabus field (used by Maths and AMS)',
+				'options' => array(
+					'media_buttons' => false,
+					'textarea_rows' => 6
+				)
             ),
 			array(
                 'id'   => 'courseDetailedLOs',
                 'name' => 'Course Detailed Learning Outcomes',
                 'type' => 'wysiwyg',
-                'desc' => 'Provides a more detailed Learning Outcomes field (used by Maths and AMS)'
+                'desc' => 'Provides a more detailed Learning Outcomes field (used by Maths and AMS)',
+				'options' => array(
+					'media_buttons' => false,
+					'textarea_rows' => 6
+				)
             ),
 			array(
                 'id'   => 'courseContactHours',
@@ -268,7 +257,9 @@ function macs_courses_meta_boxes( $meta_boxes ) {
                 'type' => 'text',
                 'desc' => 'The contact Hours for the course, (used by Maths)'
             )
-*/
+		)
+	);
+	
     return $meta_boxes;
 }
 
@@ -395,9 +386,17 @@ function macs_print_linked_courses( )
 function macs_print_course_aims_objectives( )
 {
  	macs_print_html_metadata('courseAims', 'Aims:');
- 	macs_print_html_metadata('courseSyllabus', 'Syllabus:');
- 	macs_print_html_metadata('courseLOSM', 'Learning Oucomes: Subject Mastery');
- 	macs_print_html_metadata('courseLOPA', 'Learning Oucomes: Personal Abilities');
+	if ( rwmb_meta( 'courseDetailedSyllabus' ) != '' ) {
+	 	macs_print_html_metadata('courseDetailedSyllabus', 'Syllabus:');
+	} else {
+	 	macs_print_html_metadata('courseSyllabus', 'Syllabus:');
+	}
+	if ( rwmb_meta( 'courseDetailedLOs' ) != '' ) {
+	 	macs_print_html_metadata('courseDetailedLOs', 'Learning Outcomes:');
+	} else {
+	 	macs_print_html_metadata('courseLOSM', 'Learning Oucomes: Subject Mastery');
+	 	macs_print_html_metadata('courseLOPA', 'Learning Oucomes: Personal Abilities');	
+	}
  	macs_print_html_metadata('courseAssessmentMethods', 'Assessment Methods:');
 }
 
