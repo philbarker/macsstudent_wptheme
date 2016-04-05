@@ -232,6 +232,16 @@ function macs_courses_meta_boxes( $meta_boxes ) {
         'post_types' => array('ams-course', 'maths-course'),
         'fields'     => array(
 			array(
+                'id'   => 'courseDetailedAims',
+                'name' => 'Course Detailed Aims',
+                'type' => 'wysiwyg',
+                'desc' => 'Provides a more detailed aims field (used by Maths and AMS)',
+				'options' => array(
+					'media_buttons' => false,
+					'textarea_rows' => 6
+				)
+            ),
+			array(
                 'id'   => 'courseDetailedSyllabus',
                 'name' => 'Course Detailed Syllabus',
                 'type' => 'wysiwyg',
@@ -385,7 +395,11 @@ function macs_print_linked_courses( )
 
 function macs_print_course_aims_objectives( )
 {
- 	macs_print_html_metadata('courseAims', 'Aims:');
+	if ( rwmb_meta( 'courseDetailedAims' ) != '' ) {
+	 	macs_print_html_metadata('courseDetailedAims', 'Aims:');
+	} else {
+	 	macs_print_html_metadata('courseAims', 'Aims:');
+	}
 	if ( rwmb_meta( 'courseDetailedSyllabus' ) != '' ) {
 	 	macs_print_html_metadata('courseDetailedSyllabus', 'Syllabus:');
 	} else {
