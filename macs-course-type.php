@@ -158,7 +158,7 @@ function macs_courses_meta_boxes( $meta_boxes ) {
                 'id'   => 'courseLinkedCourses',
                 'name' => 'Course Linked Courses',
                 'type' => 'post',
-				'post_type' => 'course',
+		        'post_type' => array('cs-course', 'ams-course', 'maths-course'),
 				'field_type'  => 'select_advanced',
 				'placeholder' => __( 'Select a course'),
 				'query_args'  => array(
