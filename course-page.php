@@ -18,8 +18,8 @@
 	</header>
 
 	<div class="entry-content clearfix">
-		<?php macs_print_course_leader(); ?>
 		<?php macs_print_course_leader_img(); ?>
+		<?php macs_print_course_leader(); ?>
 		<?php macs_print_course_prereqs(); ?>
 		<?php macs_print_linked_courses(); ?>
 		<?php macs_print_course_aims_objectives(); ?> 

@@ -319,13 +319,13 @@ function macs_print_course_leader_img( )
 {
 	if ( implode( '', rwmb_meta( 'courseLeader' ) ) )
 	{
-		echo '<p class="alignright" >';
+		echo '<div class="alignright" >';
         $people = rwmb_meta( 'courseLeader' );
         foreach ( $people as $person )
 		{
 			macs_print_person_img( $person );
 		}
-		echo '</p>';
+		echo '</div>';
 	}
 
 }
@@ -393,25 +393,70 @@ function macs_print_linked_courses( )
 	}
 }
 
+
+
 function macs_print_course_aims_objectives( )
+// if there is *any* detailed course information as custom metadata, it is
+// printed using print_html_course_info(), using default metadata as fallback
+// for any fields for which detailed info is missing. 
+// if there is no detailed course information as custom metadata, then
+//  - for math and ams: a link to the pdf with detailed info is printed
+//  - for cs: the info in the default metadata fields is printed. 
 {
-	if ( rwmb_meta( 'courseDetailedAims' ) != '' ) {
-	 	macs_print_html_metadata('courseDetailedAims', 'Aims:');
-	} else {
+	function print_html_course_info( )
+	{
+		if ( rwmb_meta( 'courseDetailedAims' ) != '' ) {
+		 	macs_print_html_metadata('courseDetailedAims', 'Aims:');
+		} else {
+		 	macs_print_html_metadata('courseAims', 'Aims:');
+		}
+		if ( rwmb_meta( 'courseDetailedSyllabus' ) != '' ) {
+		 	macs_print_html_metadata('courseDetailedSyllabus', 'Syllabus:');
+		} else {
+		 	macs_print_html_metadata('courseSyllabus', 'Syllabus:');
+		}
+		if ( rwmb_meta( 'courseDetailedLOs' ) != '' ) {
+		 	macs_print_html_metadata('courseDetailedLOs', 'Learning Outcomes:');
+		} else {
+		 	macs_print_html_metadata('courseLOSM', 'Learning Oucomes: Subject Mastery');
+		 	macs_print_html_metadata('courseLOPA', 'Learning Oucomes: Personal Abilities');	
+		}
+	 	macs_print_html_metadata('courseAssessmentMethods', 'Assessment Methods:');
+	}
+
+	function print_link_to_pdf_course_info( $base_url )
+	{
 	 	macs_print_html_metadata('courseAims', 'Aims:');
+		$level = wp_get_post_terms( get_the_ID(), 'level', array('fields'=>'names') );
+		$course_code = rwmb_meta( 'courseCode' );
+		$semester = rwmb_meta( 'semester' );
+		$pdf_url = $base_url.$course_code.$semester.'.pdf';
+		echo '<p><strong>More detailed information</strong></p>';
+		echo '<ul>';
+		echo '<li><strong>Level:</strong> SCQF '.implode(', ', $level).'.</li>';
+		echo '<li>';
+		echo '<a href="'.$pdf_url.'">Syllabus, Number of lectures, Assessment, Learning Outcomes</a></li>';
+		echo '</ul>';
 	}
-	if ( rwmb_meta( 'courseDetailedSyllabus' ) != '' ) {
-	 	macs_print_html_metadata('courseDetailedSyllabus', 'Syllabus:');
+
+    //to do: make these URLs options set in WP interface
+	$maths_pdf_url = 'http://www.ma.hw.ac.uk/maths/courseinfo/';
+	$ams_pdf_url = 'http://www.ma.hw.ac.uk/ams/teach/courses';
+	$post_type = get_post_type();
+	if ( ( rwmb_meta( 'courseDetailedAims' ) != '' )
+		|| ( rwmb_meta( 'courseDetailedSyllabus' ) != '' )
+		|| ( rwmb_meta( 'courseDetailedLOs' ) != '' ) )
+	{
+		print_html_course_info( );
 	} else {
-	 	macs_print_html_metadata('courseSyllabus', 'Syllabus:');
+		if ($post_type == 'maths-course') {
+			print_link_to_pdf_course_info( $maths_pdf_url );
+		} elseif ($post_type == 'ams-course') {
+			print_link_to_pdf_course_info( $ams_pdf_url );
+		} else {
+			print_html_course_info( );
+		}
 	}
-	if ( rwmb_meta( 'courseDetailedLOs' ) != '' ) {
-	 	macs_print_html_metadata('courseDetailedLOs', 'Learning Outcomes:');
-	} else {
-	 	macs_print_html_metadata('courseLOSM', 'Learning Oucomes: Subject Mastery');
-	 	macs_print_html_metadata('courseLOPA', 'Learning Oucomes: Personal Abilities');	
-	}
- 	macs_print_html_metadata('courseAssessmentMethods', 'Assessment Methods:');
 }
 
 function macs_print_course_contact_hours( )
@@ -420,4 +465,3 @@ function macs_print_course_contact_hours( )
 	 	macs_print_html_metadata('courseContactHours', 'Contact Hours:');
 	}
 }
-
