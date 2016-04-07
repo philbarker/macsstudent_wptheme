@@ -359,7 +359,7 @@ function macs_print_course_prereqs( )
 	}
 	else 
 	{
-		echo '<p><strong>Pre-requisites:</strong>: None.</p>';
+		echo '<p><strong>Pre-requisites:</strong> None.</p>';
 		
 	}
 }
