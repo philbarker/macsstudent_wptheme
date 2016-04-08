@@ -17,7 +17,7 @@ function location_init()
 		'label'=> 'Locations',
 		'hierarchical' => true,
 		'show_ui' => true,
-		'show_in_menu' => false,
+		'show_in_menu' => true,
 		'show_in_nav_menus' => true		
 	);
 	register_taxonomy( $name, $object_type, $args);
@@ -32,7 +32,7 @@ function department_init()
 		'label'=> 'Department',
 		'hierarchical' => true,
 		'show_ui' => true,
-		'show_in_menu' => false,
+		'show_in_menu' => true,
 		'show_in_nav_menus' => true		
 	);
 	register_taxonomy( $name, $object_type, $args);
@@ -97,7 +97,7 @@ function posts_by_taxon ( $atts )
 {
 	$results = '<p>Posts by taxon: ';
 	$query = array();
-	$query['posts_per_page'] = 5;
+	$query['posts_per_page'] = -1;
 	$query['post_type'] = $atts['type'];
 	$query['tax_query'] = array();
 
@@ -166,3 +166,15 @@ function posts_by_taxon ( $atts )
 	return $results;
 }
 add_shortcode( 'posts-by-taxon', 'posts_by_taxon' );
+
+function macs_print_taxon( $taxonomy )
+{
+	$taxon = implode( ', ', wp_get_post_terms( get_the_ID(),
+											$taxonomy, 
+											array('fields'=>'names') )
+					);		
+	if ($taxon != '') 
+	{
+		echo '<p><strong>'.ucfirst($taxonomy).': </strong>'.$taxon.'.</p>';
+	}
+}

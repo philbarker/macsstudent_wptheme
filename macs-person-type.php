@@ -61,18 +61,6 @@ function macs_person_meta_boxes( $meta_boxes ) {
                 'type' => 'url',
                 'desc' => 'The URL of the Profile Picture in the staff directory.'
             ),
-/*			array(
-                'id'   => 'location',
-                'name' => 'Location',
-                'type' => 'checkbox_list',
-				'options' => array(
-					'Dubai' => 'Dubai',
-					'Edinburgh' => 'Edinburgh',
-					'Malaysia' => 'Malaysia'
-				),
-                'desc' => 'Course Co-ordinators location, e.g. Edinburgh'
-            )
-*/
 		)
 	);
     return $meta_boxes;

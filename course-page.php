@@ -20,10 +20,15 @@
 	<div class="entry-content clearfix">
 		<?php macs_print_course_leader_img(); ?>
 		<?php macs_print_course_leader(); ?>
+		<?php macs_print_course_aims(); ?>
+		<h2>Detailed Information</h2>
+		<?php macs_print_taxon( 'level' ); ?>
 		<?php macs_print_course_prereqs(); ?>
 		<?php macs_print_linked_courses(); ?>
-		<?php macs_print_course_aims_objectives(); ?> 
+		<?php macs_print_course_details(); ?> 
 		<?php macs_print_course_contact_hours(); ?>
+		<?php macs_print_taxon( 'location' ); ?>
+		<?php macs_print_taxon( 'semester' ); ?>
 	</div>
 
 	<?php do_action( 'accelerate_after_post_content' ); ?>
