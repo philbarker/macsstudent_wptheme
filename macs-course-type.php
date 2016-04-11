@@ -375,7 +375,7 @@ function macs_print_linked_courses( )
 			macs_print_course_link( $linked_course );
 			if ($linked_course === end( $linked_courses ) )
 			{ 
-			echo '. '; 
+			echo ' ';
 			} else {
 		  	echo ' &amp; ';  
 			}
@@ -454,18 +454,6 @@ function macs_print_course_details( )
 	} else {
 		print_html_course_info( );
 	}
-
-
-/*		if ( ( rwmb_meta( 'courseDetailedSyllabus' ) != '' )
-			|| ( rwmb_meta( 'courseDetailedLOs' ) != '' ) )
-		{
-			print_html_course_info( );
-		} else {
-			print_link_to_pdf_course_info( $maths_pdf_url );
-	} else {
-			print_html_course_info( );
-	}
-*/
 }
 
 function macs_print_course_contact_hours( )
@@ -473,5 +461,13 @@ function macs_print_course_contact_hours( )
 	if ( rwmb_meta( 'courseContactHours' ) != '' ) {
 		echo '<p><strong>Contact Hours:</strong> './/
 			rwmb_meta( 'courseContactHours' );
+	}
+}
+
+function macs_print_course_scqf_credits ( )
+{
+	if ( rwmb_meta( 'courseSCQFcredits' ) != '' ) {
+		echo '<p><strong>Credits:</strong> './/
+			rwmb_meta( 'courseSCQFcredits' );
 	}
 }

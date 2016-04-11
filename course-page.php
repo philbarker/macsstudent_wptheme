@@ -29,6 +29,7 @@
 		<?php macs_print_course_contact_hours(); ?>
 		<?php macs_print_taxon( 'location' ); ?>
 		<?php macs_print_taxon( 'semester' ); ?>
+		<?php macs_print_course_scqf_credits(); ?>
 	</div>
 
 	<?php do_action( 'accelerate_after_post_content' ); ?>
