@@ -423,10 +423,17 @@ function print_link_to_course_info_pdf( )
 {
 	$base_url = 'http://www.ma.hw.ac.uk/maths/courseinfo/';
 	$course_code = rwmb_meta( 'courseCode' );
-	$semester = rwmb_meta( 'semester' );
-	$pdf_url = $base_url.$course_code.$semester.'.pdf';
+	$semester = wp_get_post_terms( get_the_ID(),
+								    'semester', 
+								    array('fields'=>'names') );
 	echo '<p><strong>Further information:</strong> ';
-	echo '<a href="'.$pdf_url.'">Syllabus, Number of lectures, Assessment, Learning Outcomes</a>';
+	foreach ( $semester as $s ) 
+	{
+		$pdf_url = $base_url.$course_code.$s.'.pdf';
+		echo '<a href="'.$pdf_url.'">';
+		echo 'Syllabus, Number of lectures, Assessment, Learning Outcomes';
+		echo '</a><br />';
+	}
 	echo '</p>';
 }
 
