@@ -341,7 +341,7 @@ function macs_print_course_prereqs( )
 			macs_print_course_link( $prereq );
 			if ($prereq === end( $prereq_courses ) )
 			{ 
-			echo '. '; 
+			echo ' '; 
 			} else {
 		  	echo ' &amp; ';  
 			}
@@ -350,7 +350,7 @@ function macs_print_course_prereqs( )
 		{
 			echo ' '.rwmb_meta( 'coursePrerequisitesText' );
 		}
-		echo '</p>';
+		echo '</p>.';
 	}
 	elseif ( rwmb_meta( 'coursePrerequisitesText' ) )
 	{
@@ -359,8 +359,7 @@ function macs_print_course_prereqs( )
 	}
 	else 
 	{
-		echo '<p><strong>Pre-requisites:</strong> None.</p>';
-		
+		echo '<p><strong>Pre-requisites:</strong> none.</p>';
 	}
 }
 
@@ -384,7 +383,7 @@ function macs_print_linked_courses( )
 		{
 			echo ' '.rwmb_meta( 'courseLinkedCoursesText' );
 		}
-		echo '</p>';
+		echo '.</p>';
 	}
 	elseif ( rwmb_meta( 'courseLinkedCoursesText' ) )
 	{
@@ -432,7 +431,7 @@ function print_link_to_course_info_pdf( )
 		$pdf_url = $base_url.$course_code.$s.'.pdf';
 		echo '<a href="'.$pdf_url.'">';
 		echo 'Syllabus, Number of lectures, Assessment, Learning Outcomes';
-		echo '</a><br />';
+		echo '</a>.<br />';
 	}
 	echo '</p>';
 }
@@ -460,14 +459,14 @@ function macs_print_course_contact_hours( )
 {
 	if ( rwmb_meta( 'courseContactHours' ) != '' ) {
 		echo '<p><strong>Contact Hours:</strong> './/
-			rwmb_meta( 'courseContactHours' );
+			rwmb_meta( 'courseContactHours' ).'.</p>';
 	}
 }
 
-function macs_print_course_scqf_credits ( )
+function macs_print_course_scqf_credits( )
 {
 	if ( rwmb_meta( 'courseSCQFcredits' ) != '' ) {
 		echo '<p><strong>Credits:</strong> './/
-			rwmb_meta( 'courseSCQFcredits' );
+			rwmb_meta( 'courseSCQFcredits' ).'.</p>';
 	}
 }
