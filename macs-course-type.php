@@ -463,3 +463,11 @@ function macs_print_course_contact_hours( )
 			rwmb_meta( 'courseContactHours' );
 	}
 }
+
+function macs_print_course_scqf_credits ( )
+{
+	if ( rwmb_meta( 'courseSCQFcredits' ) != '' ) {
+		echo '<p><strong>Credits:</strong> './/
+			rwmb_meta( 'courseSCQFcredits' );
+	}
+}
