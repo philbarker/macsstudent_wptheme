@@ -350,12 +350,12 @@ function macs_print_course_prereqs( )
 		{
 			echo ' '.rwmb_meta( 'coursePrerequisitesText' );
 		}
-		echo '</p>.';
+		echo '.</p>';
 	}
 	elseif ( rwmb_meta( 'coursePrerequisitesText' ) )
 	{
 		echo '<p><strong>Pre-requisites:</strong> './/
-			rwmb_meta( 'coursePrerequisitesText' ).'</p>';
+			rwmb_meta( 'coursePrerequisitesText' ).'.</p>';
 	}
 	else 
 	{
@@ -388,7 +388,7 @@ function macs_print_linked_courses( )
 	elseif ( rwmb_meta( 'courseLinkedCoursesText' ) )
 	{
 		echo '<p><strong>Linked course(s):</strong> './/
-			rwmb_meta( 'courseLinkedCoursesText' ).'</p>';
+			rwmb_meta( 'courseLinkedCoursesText' ).'.</p>';
 	}
 }
 
