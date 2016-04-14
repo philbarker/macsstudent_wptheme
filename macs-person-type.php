@@ -20,8 +20,9 @@ function macs_create_person_type() {
 		'edit_item' => __( 'Edit person' ),
 		'view_item' => __( 'View person' )
       ),
-      'public' => true,
+      'public' => false,
       'has_archive' => false,
+	  'exclude_from_search' => true,
       'rewrite' => array('slug' => 'person'),
       'supports' => array('title', 'revisions' ),
 	  'menu_position' => 22,
