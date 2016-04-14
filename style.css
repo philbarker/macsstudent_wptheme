@@ -1,0 +1,18 @@
+/*
+ Theme Name:   MACS Students
+ Theme URI:    https://github.com/philbarker/macsstudent_wptheme
+ Description:  Accelerate Child Theme
+ Author:       Lisa Scott
+ Author URI:   http://example.com
+ Template:     accelerate
+ Version:      1.0.0
+ License:      GNU General Public License v2 or later
+ License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+  Tags: light, white, two-columns, right-sidebar, left-sidebar, fluid-layout, responsive-layout, custom-header, custom-background, 
+
+custom-menu, custom-colors, sticky-post, threaded-comments, translation-ready, featured-images, theme-options, post-formats
+ Text Domain:  accelerate-child
+*/
+
+.important{color:#642f6c; font-weight:bold;}
+
