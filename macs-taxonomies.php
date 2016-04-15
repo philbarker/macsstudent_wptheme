@@ -32,7 +32,7 @@ function department_init()
 		'label'=> 'Department',
 		'hierarchical' => true,
 		'show_ui' => true,
-		'show_in_menu' => true,
+		'show_in_menu' => false,
 		'show_in_nav_menus' => true		
 	);
 	register_taxonomy( $name, $object_type, $args);
