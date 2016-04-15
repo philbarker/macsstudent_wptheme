@@ -23,6 +23,7 @@ function macs_create_person_type() {
       'public' => false,
       'has_archive' => false,
 	  'exclude_from_search' => true,
+	  'show_ui' => true,
       'rewrite' => array('slug' => 'person'),
       'supports' => array('title', 'revisions' ),
 	  'menu_position' => 22,
