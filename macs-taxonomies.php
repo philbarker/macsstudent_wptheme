@@ -98,59 +98,41 @@ function posts_by_taxon ( $atts )
 	$results = '<p>Posts by taxon: ';
 	$query = array();
 	$query['posts_per_page'] = -1;
-	$query['post_type'] = $atts['type'];
 	$query['tax_query'] = array();
+	$taxonomies = get_taxonomies();
 
-	if ( array_key_exists( 'level', $atts ) )
+	foreach ($taxonomies as $taxonomy) 
 	{
-		$results = $results.'level = '.$atts['level'];
-		$level_tax_query = array(
-			'taxonomy' => 'level',
-			'field' => 'name',
-			'terms' => $atts['level']
-		);
-		$query['tax_query'][] = $level_tax_query;
+		if ( array_key_exists( $taxonomy, $atts ) )
+		{
+			$results = $results.$taxonomy.' = '.$atts[$taxonomy];
+			$tax_query = array(
+				'taxonomy' => $taxonomy,
+				'field' => 'name',
+				'terms' => $atts[$taxonomy]
+			);
+			$query['tax_query'][] = $tax_query;
+		}
 	}
-	if ( array_key_exists( 'semester', $atts ) )
+
+	if ( array_key_exists( 'type', $atts ) )
 	{
-		$results = $results.'semester = '.$atts['semester'];
-		$semester_tax_query = array(
-			'taxonomy' => 'semester',
-			'field' => 'name',
-			'terms' => $atts['semester']
-		);
-		$query['tax_query'][] = $semester_tax_query;
-	}
-	if ( array_key_exists( 'department', $atts ) )
+		$query['post_type'] = $atts['type'];
+	} else {
+		$query['post_type'] = 'post';
+	}		
+
+	if ( array_key_exists( 'orderby', $atts ) )
 	{
-		$results = $results.' department = '.$atts['department'];
-		$department_tax_query = array(
-			'taxonomy' => 'department',
-			'field' => 'name',
-			'terms' => $atts['department']
-		);
-		$query['tax_query'][] = $department_tax_query;
-	}
-	if ( array_key_exists( 'delivery_level', $atts ) )
-	{
-		$results = $results.' delivery level = '.$atts['delivery_level'];
-		$delivery_level_tax_query = array(
-			'taxonomy' => 'delivery_level',
-			'field' => 'name',
-			'terms' => $atts['delivery_level']
-		);
-		$query['tax_query'][] = $delivery_level_tax_query;
-	}
-	if ( array_key_exists( 'location', $atts ) )
-	{
-		$results = $results.' location = '.$atts['location'];
-		$location_tax_query = array(
-			'taxonomy' => 'location',
-			'field' => 'name',
-			'terms' => $atts['location']
-		);
-		$query['tax_query'][] = $location_tax_query;
-	}
+		$query['orderby'] = $atts['orderby'];
+		if ( array_key_exists( 'order', $atts ) )
+		{
+			$query['order'] = strtoupper( $atts['order'] );
+		} else {
+			$query['order'] = 'ASC';
+		}
+	}		
+
 
 	$posts_array = get_posts( $query );
 
