@@ -232,6 +232,16 @@ function macs_courses_meta_boxes( $meta_boxes ) {
         'post_types' => array('ams-course', 'maths-course'),
         'fields'     => array(
 			array(
+                'id'   => 'courseSummary',
+                'name' => 'Course Summary',
+                'type' => 'wysiwyg',
+                'desc' => 'Provides a summary field (used by Maths and AMS)',
+				'options' => array(
+					'media_buttons' => false,
+					'textarea_rows' => 6
+				)
+            ),
+			array(
                 'id'   => 'courseDetailedAims',
                 'name' => 'Course Detailed Aims',
                 'type' => 'wysiwyg',
@@ -246,6 +256,16 @@ function macs_courses_meta_boxes( $meta_boxes ) {
                 'name' => 'Course Detailed Syllabus',
                 'type' => 'wysiwyg',
                 'desc' => 'Provides a more detailed syllabus field (used by Maths and AMS)',
+				'options' => array(
+					'media_buttons' => false,
+					'textarea_rows' => 6
+				)
+            ),
+			array(
+                'id'   => 'courseReadingList',
+                'name' => 'Course Reading List',
+                'type' => 'wysiwyg',
+                'desc' => 'Provides a reading list field (used by Maths and AMS)',
 				'options' => array(
 					'media_buttons' => false,
 					'textarea_rows' => 6
