@@ -20,6 +20,7 @@
 	<div class="entry-content clearfix">
 		<?php macs_print_course_leader_img(); ?>
 		<?php macs_print_course_leader(); ?>
+		<?php macs_print_course_summary(); ?>
 		<?php macs_print_course_aims(); ?>
 		<h2>Detailed Information</h2>
 		<?php macs_print_taxon( 'level' ); ?>

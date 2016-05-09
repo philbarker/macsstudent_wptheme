@@ -412,6 +412,13 @@ function macs_print_linked_courses( )
 	}
 }
 
+function macs_print_course_summary( )
+{
+	if ( rwmb_meta( 'courseSummary' ) != '' ) {
+	 	macs_print_html_metadata('courseSummary', '');
+	}
+}
+
 function macs_print_course_aims( )
 {
 	if ( rwmb_meta( 'courseDetailedAims' ) != '' ) {
@@ -435,6 +442,10 @@ function print_html_course_info( )
 	 	macs_print_html_metadata('courseLOSM', 'Learning Oucomes: Subject Mastery');
 	 	macs_print_html_metadata('courseLOPA', 'Learning Oucomes: Personal Abilities');	
 	}
+	if ( rwmb_meta( 'courseReadingList' ) != '' ) {
+	 	macs_print_html_metadata('courseReadingList', 'Reading list:');
+	}
+
  	macs_print_html_metadata('courseAssessmentMethods', 'Assessment Methods:');
 }
 
