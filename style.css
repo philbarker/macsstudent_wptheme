@@ -46,6 +46,11 @@ a.read-more {
 	clear: both;
 }
 
+/*make font a little darker*/
+body, button, input, select, textarea {
+	color: #444444;
+}
+
 /*Make links bold to make more visible*/
 a {
 	font-weight: 400;
