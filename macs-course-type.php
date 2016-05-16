@@ -275,7 +275,8 @@ function macs_courses_meta_boxes( $meta_boxes ) {
                 'id'   => 'courseDetailedLOs',
                 'name' => 'Course Detailed Learning Outcomes',
                 'type' => 'wysiwyg',
-                'desc' => 'Provides a more detailed Learning Outcomes field (used by Maths and AMS)',
+                'desc' => 'Provides a more detailed Learning Outcomes field 
+				           (used by Maths and AMS)',
 				'options' => array(
 					'media_buttons' => false,
 					'textarea_rows' => 6
@@ -286,6 +287,15 @@ function macs_courses_meta_boxes( $meta_boxes ) {
                 'name' => 'Course Contact Hours',
                 'type' => 'text',
                 'desc' => 'The contact Hours for the course, (used by Maths)'
+            ),
+			array(
+                'id'   => 'suppressPDFLink',
+                'name' => 'Suppres pdf link',
+                'type' => 'checkbox',
+                'desc' => 'Do not automatically generate a link to a pdf with 
+				           more information about course (check this only if 
+				           you know such a file does not exist).',
+				'std'  => 0
             )
 		)
 	);
@@ -473,8 +483,9 @@ function macs_print_course_details( )
 	$post_type = get_post_type();
 	if  ( 'maths-course' == $post_type )
 	{ 
-		if (( rwmb_meta( 'courseDetailedSyllabus' ) == '' ) 
-            &&  ( rwmb_meta( 'courseDetailedLOs' ) == '' )
+		if (   (0 == rwmb_meta( 'suppressPDFLink') )
+            && ('' ==  rwmb_meta( 'courseDetailedSyllabus' ) ) 
+            && ('' ==  rwmb_meta( 'courseDetailedLOs' ) )
 			)
 		{
 			print_link_to_course_info_pdf( ); 
