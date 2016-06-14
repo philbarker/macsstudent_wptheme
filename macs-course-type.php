@@ -425,7 +425,7 @@ function macs_print_linked_courses( )
 function macs_print_course_summary( )
 {
 	if ( rwmb_meta( 'courseSummary' ) != '' ) {
-	 	macs_print_html_metadata('courseSummary', '');
+	 	macs_print_html_metadata('courseSummary', 'Summary:');
 	}
 }
 
