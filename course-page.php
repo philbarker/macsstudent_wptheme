@@ -31,6 +31,7 @@
 		<?php macs_print_course_contact_hours(); ?>
 		<?php macs_print_taxon( 'level' ); ?>
 		<?php macs_print_course_scqf_credits(); ?>
+		<?php macs_print_boiler_text(); ?>
 	</div>
 
 	<?php do_action( 'accelerate_after_post_content' ); ?>

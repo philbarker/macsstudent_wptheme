@@ -512,3 +512,15 @@ function macs_print_course_scqf_credits( )
 			rwmb_meta( 'courseSCQFcredits' ).'.</p>';
 	}
 }
+
+function macs_print_boiler_text( )
+{
+	if ('ams-course' == get_post_type() )
+	{
+		echo '<h2>Other Information</h2>';
+		echo '<p><strong>Help:</strong> If you have any problems or questions
+              regarding the course, you are encouraged to contact the lecturer</p>';
+		echo '<p><strong>VISION:</strong> further information and course materials
+              are available on <a href="http://vision.hw.ac.uk">VISION</a></p>';
+	} 
+}
