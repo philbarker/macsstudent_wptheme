@@ -95,17 +95,27 @@ add_action( 'init', 'delivery_level_init' );
 
 function posts_by_taxon ( $atts ) 
 {
-	$results = '<p>Posts by taxon: ';
+	$results = '<p>';
 	$query = array();
 	$query['posts_per_page'] = -1;
 	$query['tax_query'] = array();
 	$taxonomies = get_taxonomies();
+	
+	if ( array_key_exists( 'debug', $atts ) )
+	{
+		$debug = ('true' === $atts['debug']);
+	} else {
+		$debug = false;
+	}
 
 	foreach ($taxonomies as $taxonomy) 
 	{
 		if ( array_key_exists( $taxonomy, $atts ) )
 		{
-			$results = $results.$taxonomy.' = '.$atts[$taxonomy];
+			if ($debug)
+			{
+				$results = $results.'Posts by taxon: '.$taxonomy.' = '.$atts[$taxonomy];
+			}
 			$tax_query = array(
 				'taxonomy' => $taxonomy,
 				'field' => 'name',
@@ -119,7 +129,7 @@ function posts_by_taxon ( $atts )
 	{
 		$query['post_type'] = $atts['type'];
 	} else {
-		$query['post_type'] = 'post';
+		$query['post_type'] = get_post_types();
 	}		
 
 	if ( array_key_exists( 'orderby', $atts ) )
