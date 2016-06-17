@@ -159,14 +159,20 @@ function posts_by_taxon ( $atts )
 }
 add_shortcode( 'posts-by-taxon', 'posts_by_taxon' );
 
-function macs_print_taxon( $taxonomy )
+function macs_print_taxon( $taxonomy, $headword = NULL )
 {
 	$taxon = implode( ', ', wp_get_post_terms( get_the_ID(),
 											$taxonomy, 
 											array('fields'=>'names') )
-					);		
+					);
+	if (NULL === $headword)
+	{
+		$headword = '<p><strong>'.ucfirst($taxonomy).': </strong>';
+	} else {
+		$headword = '<p><strong>'.$headword.': </strong>';
+	}
 	if ($taxon != '') 
 	{
-		echo '<p><strong>'.ucfirst($taxonomy).': </strong>'.$taxon.'.</p>';
+		echo $headword.$taxon.'.</p>';
 	}
 }
