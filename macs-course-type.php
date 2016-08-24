@@ -449,8 +449,8 @@ function print_html_course_info( )
 	if ( rwmb_meta( 'courseDetailedLOs' ) != '' ) {
 	 	macs_print_html_metadata('courseDetailedLOs', 'Learning Outcomes:');
 	} else {
-	 	macs_print_html_metadata('courseLOSM', 'Learning Oucomes: Subject Mastery');
-	 	macs_print_html_metadata('courseLOPA', 'Learning Oucomes: Personal Abilities');	
+	 	macs_print_html_metadata('courseLOSM', 'Learning Outcomes: Subject Mastery');
+	 	macs_print_html_metadata('courseLOPA', 'Learning Outcomes: Personal Abilities');	
 	}
 	if ( rwmb_meta( 'courseReadingList' ) != '' ) {
 	 	macs_print_html_metadata('courseReadingList', 'Reading list:');
