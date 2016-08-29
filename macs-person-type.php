@@ -90,7 +90,9 @@ function macs_print_person_img( $person_id ) {
 	if ($imgref != '') {
 	    $name = get_the_title( $person_id );
 		$url  = esc_url( rwmb_meta( 'staffDirURL', array(), $person_id ) ); 
-		echo sprintf( '<a href="%s"><img src="%s" alt="%s" /></a>', 
+		echo sprintf( '<a href="%s"><img src="%s" alt="%s" class="MACSpersonimg"
+                                         style="width:135px;height:180px;"/></a>', 
 					$url, $imgref, $name );
+#Quick fix. Yes, the style info should go in the stylesheet
 	}
 }
